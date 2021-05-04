@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <title>UTM Numerical Method Calculator</title>
+    <meta charset='UTF-8'/>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name='author' content='AdmiJW'/>
+    <meta name='description' content='Numerical Method Calculator for Chapter 6 of Computational Mathematics'/>
+    <meta name='keywords' content="Newton's Method, Bisection Method, False position Method, Secant method"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+
+    <!-- Particle JS -->
+    <script defer src='https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.2/particles.min.js'></script>
+
+    <!-- Math JAX -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <!-- Math JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.3.2/math.js" async integrity="sha512-Imer9iTeuCPbyZUYNTKsBWsAk3m7n1vOgPsAmw4OlkGSS9qK3/WlJZg7wC/9kL7nUUOyb06AYS8DyYQV7ELEbg==" crossorigin="anonymous"></script>
+
+    <!-- CSS -->
+    <link rel='stylesheet' type='text/css' href='/style/style.css'/>
+    <!-- JS -->
+    <script defer src='mathematics.js'></script>
+    <script defer src='script.js'></script>
+
+</head>
+<body>
+    <form class='container my-5' id='input--form'>
+        <h1 class='display-4 text-center'>📊 Numerical Method Calculator</h1>
+        <p class='lead text-center'>Made to fit UTM Computational Mathematics</p>
+
+        <div class='divider'></div>
+
+        <!-- Type of Numerical Method -->
+        <div class='row input--type'>
+            <label for='input--type__value' class='col-sm-3 col-form-label'>Type: </label>
+            <select class="form-select col-sm-9" id='input--type__value' aria-label="Select type of numerical method">
+                <option selected value="bisection">Bisection Method</option>
+                <option value="false-position">False Position Method</option>
+                <option value="secant">Secant Method</option>
+                <option value='newton'>Newton-Raphson Method</option>
+            </select>
+        </div>
+
+        <!-- Function -->
+        <div class='row input--func'>
+            <label for='input--func__value' class='col-sm-3 col-form-label'>f(x) = </label>
+            <input type='text' class='form-control col-sm-9' id='input--func__value' value="x^2-cos(x)-1"/>
+        </div>
+
+        <!-- Equation preview -->
+        <div id='input--func__latex'>
+            $$x^2-cos(x)-1$$
+        </div>
+
+        <!-- Lower and Upper bound -->
+        <div class='row input--bound'>
+            <label for='input--bound__value1' class='col-sm-2 col-form-label'>x<sub>0</sub> = </label>
+            <input type='number' class='form-control col-sm-4' id='input--bound__value1' value="0" step='any'/>
+            <label for='input--bound__value2' class='col-sm-2 col-form-label'>x<sub>1</sub> = </label>
+            <input type='number' class='form-control col-sm-4' id='input--bound__value2' value="2" step='any'/>
+        </div>
+
+        <!-- Precision and Tolerance -->
+        <div class='row input--precision'>
+            <label for="input--precision__preval" class="col-form-label col-sm-3">Precision: </label>
+            <div class='row align-items-center m-0 p-0 col-sm-3'>
+                <input type='number' value='2' min='0' max='12' step='1' class='form-control w-auto mr-1 flex-grow-1' id='input--precision__preval'/>
+                <span class="form-text text-left text-light">d.p</span>
+            </div>
+
+            <label for="input--precision-tolerance" class="col-sm-3 col-form-label">Error, ε = </label>
+            <input type='number' value='0.005' step='any' class='form-control col-sm-3' id='input--precision__tolerance'/>
+        </div>
+
+        <!-- Max Iterations -->
+        <div class='row input--maxiter'>
+            <label for='input--maxiter__value' class='col-sm-3 col-form-label'>Max Iterations: </label>
+            <input type='number' value='10' min='1' max='1000' step='1' class='form-control col-sm-9' id='input--maxiter__value'/>
+        </div>
+
+        <!-- Calculate -->
+        <button type='submit' id='input--submit' class='d-block mt-5 mx-auto btn btn-lg btn-success'>Calculate</button>
+    </form>
+
+    <div class='container my-5' id='result'>
+        <h2 class='display-4 text-center'>Results</h2>
+
+        <div class='divider'></div>
+
+        <div class='wrapper d-flex justify-content-center'>
+            <table class='table table-striped table-hover text-center'>
+                <thead class='table-dark' id='table--head'>
+                    <tr>
+                        <th>$$i$$</th>
+                        <th>$$a$$</th>
+                        <th>$$b$$</th>
+                        <th>$$f(a)$$</th>
+                        <th>$$f(b)$$</th>
+                        <th>$$p$$</th>
+                        <th>$$f(p)$$</th>
+                    <tr>
+                </thead>
+                <tbody class='table-info' id='table--body'></tbody>
+            </table>
+        </div>
+
+        <div class='text-center my-4 py-3' id='result--ans'>
+            <h4 class='lead'>Answer: </h4>
+            <p class='ans' id='result--ans--ans'></p>
+            <h4 class='lead'>Termination Condition: </h4>
+            <p class='ans' id='result--ans--termination'></p>
+        </div>
+    </div>
+
+    <footer class='p-5 mt-5 text-white text-center'>
+        <p class='display-4 my-4'>🛠 Made by 
+            <a class='text-decoration-none' href='https://github.com/AdmiJW' target='_blank' rel='noopener noreferrer' >AdmiJW</a>
+             🛠
+        </p>
+        <p class='text-sm text-light'>2021</p>
+    </footer>
+
+    <div class='background'>
+        <canvas class="background__canvas"></canvas>
+    </div>
+</body>
+</html>

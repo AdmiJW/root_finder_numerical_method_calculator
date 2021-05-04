@@ -1,0 +1,136 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: rgb(43,47,119);
+    background: linear-gradient( rgba(43,47,119,1) 0%, rgba(7,11,52,1) 63%);
+}
+
+@mixin glassmorphism {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+    backdrop-filter: blur( 4px );
+    -webkit-backdrop-filter: blur( 4px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+@mixin glassmorphism-shrink {
+    background-color: rgba(0,0,0,.1);
+    box-shadow: inset 2px 2px 4px rgba(0,0,0,.3), inset -2px -2px 4px rgba(255,255,255,.3) ;
+    border-radius: 10px;
+}
+
+
+.divider {
+    @include glassmorphism-shrink();
+    padding: 10px 0;
+    margin: 30px 0;
+}
+
+
+
+// Form
+form {
+    @include glassmorphism();
+    margin: 40px 0;
+    padding: 10px 40px !important;
+    color: white;
+
+    .lead { color: darken(white, 15%); }
+
+    .row {
+        margin: 15px 0;
+    }
+
+    input, select {
+        border-radius: 10px !important;
+        padding: .3em 15px !important;
+    }
+
+    #input--func__latex {
+        @include glassmorphism-shrink();
+        padding: 20px;
+
+        @media screen and (min-width: 576px) {
+            width: 75%;
+            margin-left: auto;
+        }
+    }
+}
+
+
+#result {
+    @include glassmorphism();
+    padding: 30px 20px;
+    color: white;
+
+    .wrapper {
+        overflow-y: auto;
+    }
+
+    table {
+        display: inline-block;
+        width: auto;
+        overflow-y: auto;
+    }
+
+}
+
+
+#result--ans {
+    @include glassmorphism-shrink();
+
+    .lead {
+        font-size: 2rem;
+        color: #ccc;
+    }
+
+    .ans {
+        font-size: 2rem;
+        font-weight: bold;
+    }
+}
+
+
+footer {
+    @include glassmorphism();
+}
+
+
+.background {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    z-index: -1;
+
+    &__canvas {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100vw; height: 100vh;
+    }
+}
+
+
+
+
+.slidein {
+    animation: slidein .5s ease forwards;
+}
+@keyframes slidein {
+    from {
+        opacity: 0;
+        transform: scale(0);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

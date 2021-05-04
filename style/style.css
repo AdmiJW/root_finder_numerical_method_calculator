@@ -1,0 +1,164 @@
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #2b2f77;
+  background: -webkit-gradient(linear, left top, left bottom, from(#2b2f77), color-stop(63%, #070b34));
+  background: linear-gradient(#2b2f77 0%, #070b34 63%);
+}
+
+.divider {
+  background-color: rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3), inset -2px -2px 4px rgba(255, 255, 255, 0.3);
+          box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3), inset -2px -2px 4px rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  padding: 10px 0;
+  margin: 30px 0;
+}
+
+form {
+  background: rgba(255, 255, 255, 0.15);
+  -webkit-box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+          box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  margin: 40px 0;
+  padding: 10px 40px !important;
+  color: white;
+}
+
+form .lead {
+  color: #d9d9d9;
+}
+
+form .row {
+  margin: 15px 0;
+}
+
+form input, form select {
+  border-radius: 10px !important;
+  padding: .3em 15px !important;
+}
+
+form #input--func__latex {
+  background-color: rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3), inset -2px -2px 4px rgba(255, 255, 255, 0.3);
+          box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3), inset -2px -2px 4px rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  padding: 20px;
+}
+
+@media screen and (min-width: 576px) {
+  form #input--func__latex {
+    width: 75%;
+    margin-left: auto;
+  }
+}
+
+#result {
+  background: rgba(255, 255, 255, 0.15);
+  -webkit-box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+          box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 30px 20px;
+  color: white;
+}
+
+#result .wrapper {
+  overflow-y: auto;
+}
+
+#result table {
+  display: inline-block;
+  width: auto;
+  overflow-y: auto;
+}
+
+#result--ans {
+  background-color: rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3), inset -2px -2px 4px rgba(255, 255, 255, 0.3);
+          box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.3), inset -2px -2px 4px rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+}
+
+#result--ans .lead {
+  font-size: 2rem;
+  color: #ccc;
+}
+
+#result--ans .ans {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+footer {
+  background: rgba(255, 255, 255, 0.15);
+  -webkit-box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+          box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+}
+
+.background__canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.slidein {
+  -webkit-animation: slidein .5s ease forwards;
+          animation: slidein .5s ease forwards;
+}
+
+@-webkit-keyframes slidein {
+  from {
+    opacity: 0;
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes slidein {
+  from {
+    opacity: 0;
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+/*# sourceMappingURL=style.css.map */
