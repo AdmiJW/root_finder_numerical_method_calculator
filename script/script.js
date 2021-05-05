@@ -10,6 +10,9 @@ tsParticles
   .catch((error) => {
     console.error(error);
   });
+
+
+
 //=================================
 //  Components
 //=================================
@@ -82,6 +85,7 @@ function changeTableHeader(type) {
         case "newton":
             htmlTableHead.innerHTML = newtonMethodHeaderHTML;
     }
+    htmlTableBody.innerHTML = '';
     MathJax.typeset();
 }
 
@@ -109,7 +113,7 @@ function correctPrecision() {
     let precision = Number.parseInt(htmlPrecisionInput.value);
     if (!Number.isInteger(precision) || precision < 0) return;
 
-    const dp = math.round( Math.pow(10, -precision) / 2.0, precision+1 );
+    const dp = math.round( Math.pow(10, -precision+1) / 2.0, precision+1 );
     htmlToleranceInput.value = dp;
 }
 
@@ -177,8 +181,8 @@ function evaluate() {
 
     //  Validation of precision
     precision = parseFloat(precision);
-    if ( isNaN(precision) || Math.round(precision) !== precision || precision < 0 || precision > 12) {
-        window.alert("Error found while validating precision. Ensure that precision is natural number and (0 <= N <= 12)?");
+    if ( isNaN(precision) || Math.round(precision) !== precision || precision < 0 || precision > 14) {
+        window.alert("Error found while validating precision. Ensure that precision is natural number and (0 <= N <= 14)?");
         return;
     }
 
@@ -199,7 +203,6 @@ function evaluate() {
     htmlTableBody.innerHTML = '';
 
     let res = null;
-    htmlTableHead.scrollIntoView(true);
     try {
         if (type === 'bisection') res = bisection(func, x0, x1, error, precision, maxiter, appendRow);
         else if (type === 'false-position') res = falsePosition(func, x0, x1, error, precision, maxiter, appendRow);
@@ -209,8 +212,10 @@ function evaluate() {
         window.alert("Error: " + e);
         return;
     }
+    
+    htmlTableHead.scrollIntoView(true);
 
-    htmlAnsOutput.innerHTML = `= ${res.ans} <br>= ${math.round(res.ans, precision)} (Rounded to ${precision} d.p)`;
+    htmlAnsOutput.innerHTML = `= ${res.ans} <br>= ${math.round(res.ans, precision-1)} (Rounded to ${precision-1} d.p)`;
 
     let o;
     if (res.end === MAX_ITER_COUNT_HIT) o = 'Maximum Iteration Count Reached';

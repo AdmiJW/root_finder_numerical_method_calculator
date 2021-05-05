@@ -58,6 +58,7 @@ form {
     #input--func__latex {
         @include glassmorphism-shrink();
         padding: 20px;
+        font-size: 1.3rem;
 
         @media screen and (min-width: 576px) {
             width: 75%;
@@ -80,6 +81,8 @@ form {
         display: inline-block;
         width: auto;
         overflow-y: auto;
+
+        td, th { padding: .7em 1.5em; }
     }
 
 }

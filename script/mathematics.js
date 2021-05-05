@@ -9,7 +9,7 @@ const F_P_LESS = 4;
 //=================================
 //  Termination Condition Checker
 //=================================
-function checkBracketedTerminate(a, b, prevp, p, fa, fb, fp, tolerance) {
+function checkBracketedTerminate(a, b, prevp, p, fp, tolerance) {
     if (fp === 0) return ROOT_FOUND;
     if (Math.abs(b - a) < tolerance) return B_MINUS_A;
     if (Math.abs(p - prevp) < tolerance) return MIDPOINT_INTERVAL;
@@ -30,15 +30,14 @@ function checkOpenTerminate(prevp, p, fp, tolerance) {
 // Bisection Method
 //=======================
 function bisection(expr, a, b, tolerance, precision, maxiter, callback) {
-    //  Preloop Test
-    //  Test if is valid a and b
+    //  Preloop Test - Test if is valid a and b
     const e1 = expr.evaluate({x:a});
     const e2 = expr.evaluate({x:b});
     if ((e1 < 0) && (e2 < 0) || (e1 > 0) && (e2 > 0))
         throw "Bisection: Initial values a,b must have f(a) and f(b) to have different signs!";
     
-    a = math.round(a, precision+1);
-    b = math.round(b, precision+1);
+    a = math.round(a, precision);
+    b = math.round(b, precision);
     let previousMid = b;
 
     //  Root is either a or b
@@ -47,16 +46,16 @@ function bisection(expr, a, b, tolerance, precision, maxiter, callback) {
 
     //  Iteration
     for (let i = 1; i <= maxiter; ++i) {
-        const fa = math.round( expr.evaluate({x: a}), precision+1);
-        const fb = math.round( expr.evaluate({x: b}), precision+1);
+        const fa = math.round( expr.evaluate({x: a}), precision);
+        const fb = math.round( expr.evaluate({x: b}), precision);
 
-        const p = math.round( math.round( (a + b) / 2, precision+2), precision+1 );
-        const fp = math.round( expr.evaluate({x: p}), precision+1);
+        const p = math.round( math.round( (a + b) / 2, precision+1), precision );
+        const fp = math.round( expr.evaluate({x: p}), precision);
 
         callback([i, a, b, fa, fb, p, fp]);
 
         //  Check for terminate conditions
-        const terminateCondition = checkBracketedTerminate(a,b,previousMid,p,fa,fb,fp,tolerance);
+        const terminateCondition = checkBracketedTerminate(a,b,previousMid,p,fp,tolerance);
         if (terminateCondition !== null)
             return { ans: p, end: terminateCondition };
 
@@ -80,8 +79,8 @@ function falsePosition(expr, a, b, tolerance, precision, maxiter, callback) {
     if ((e1 < 0) && (e2 < 0) || (e1 > 0) && (e2 > 0))
         throw "Bisection: Initial values a,b must have f(a) and f(b) to have different signs!";
     
-    a = math.round(a, precision+1);
-    b = math.round(b, precision+1);
+    a = math.round(a, precision);
+    b = math.round(b, precision);
     let previousMid = b;
 
     //  Root is either a or b
@@ -90,16 +89,16 @@ function falsePosition(expr, a, b, tolerance, precision, maxiter, callback) {
 
     //  Iteration
     for (let i = 1; i <= maxiter; ++i) {
-        const fa = math.round( expr.evaluate({x: a}), precision+1);
-        const fb = math.round( expr.evaluate({x: b}), precision+1);
+        const fa = math.round( expr.evaluate({x: a}), precision);
+        const fb = math.round( expr.evaluate({x: b}), precision);
 
-        const p = math.round( (a * fb - b * fa) / (fb - fa), precision+1 );
-        const fp = math.round( expr.evaluate({x: p}), precision+1);
+        const p = math.round( (a * fb - b * fa) / (fb - fa), precision );
+        const fp = math.round( expr.evaluate({x: p}), precision);
 
         callback([i, a, b, fa, fb, p, fp]);
 
         //  Check for terminate conditions
-        const terminateCondition = checkBracketedTerminate(a,b,previousMid,p,fa,fb,fp,tolerance);
+        const terminateCondition = checkBracketedTerminate(a,b,previousMid,p,fp,tolerance);
         if (terminateCondition !== null)
             return { ans: p, end: terminateCondition };
 
@@ -122,8 +121,8 @@ function secantMethod(expr, a, b, tolerance, precision, maxiter, callback) {
     const e1 = expr.evaluate({x:a});
     const e2 = expr.evaluate({x:b});
 
-    a = math.round(a, precision+1);
-    b = math.round(b, precision+1);
+    a = math.round(a, precision);
+    b = math.round(b, precision);
 
     //  Root is either a or b
     if (e1 === 0) return {ans: a, end: ROOT_FOUND};
@@ -131,11 +130,11 @@ function secantMethod(expr, a, b, tolerance, precision, maxiter, callback) {
 
     //  Iteration
     for (let i = 1; i <= maxiter; ++i) {
-        const fa = math.round( expr.evaluate({x: a}), precision+1);
-        const fb = math.round( expr.evaluate({x: b}), precision+1);
+        const fa = math.round( expr.evaluate({x: a}), precision);
+        const fb = math.round( expr.evaluate({x: b}), precision);
 
-        const p = math.round( (a * fb - b * fa) / (fb - fa), precision+1 );
-        const fp = math.round( expr.evaluate({x: p}), precision+1);
+        const p = math.round( (a * fb - b * fa) / (fb - fa), precision );
+        const fp = math.round( expr.evaluate({x: p}), precision);
 
         callback([i, a, b, fa, fb, p, fp]);
 
@@ -158,17 +157,17 @@ function newton(expr, a, tolerance, precision, maxiter, callback) {
     //  Preloop Test
     //  Test if is valid a and b
     const e1 = expr.evaluate({x:a});
-    a = math.round(a, precision+1);
+    a = math.round(a, precision);
     if (e1 === 0) return { ans: a, end: ROOT_FOUND};
 
     const ddx = math.derivative(expr, 'x');
 
     //  Iteration
     for (let i = 1; i <= maxiter; ++i) {
-        const fa = math.round(expr.evaluate({x: a}), precision+1);
-        const fprimea = math.round(ddx.evaluate({x: a}), precision+1);
-        const p = math.round(a - (fa / fprimea), precision+1);
-        const fp = math.round(expr.evaluate({x: p}), precision+1 );
+        const fa = math.round(expr.evaluate({x: a}), precision);
+        const fprimea = math.round(ddx.evaluate({x: a}), precision);
+        const p = math.round(a - (fa / fprimea), precision);
+        const fp = math.round(expr.evaluate({x: p}), precision );
 
         callback([i, a, fa, fprimea, p, fp]);
 
@@ -181,23 +180,4 @@ function newton(expr, a, tolerance, precision, maxiter, callback) {
         a = p;
     }
     return {ans: a, end: MAX_ITER_COUNT_HIT};
-}
-
-
-
-
-//=============
-//  Test Code
-//=============
-function t() {
-    const expr = math.parse('x^2 - 2');
-    const a = 1.5;
-    const b = -2;
-    const tol = 0.00005;
-    const prec = 4;
-    const maxiter = 10;
-
-    // const res = newton(expr, a, b, tol, prec, maxiter, (r)=> console.table(r) );
-    const res = newton(expr, a, tol, prec, maxiter, (r)=> console.table(r) );
-    console.table(res);
 }

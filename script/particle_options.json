@@ -55,5 +55,15 @@
         }
       }
     },
+    "responsive": [{
+      "maxWidth": 768,
+      "options": {
+        "particles": {
+          "number": {
+            "value": 30
+          }
+        }
+      }
+    }],
     "retina_detect": true
   }
