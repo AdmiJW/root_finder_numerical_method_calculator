@@ -2,7 +2,7 @@
 <html lang='en'>
 <head>
     <title>UTM Numerical Method Calculator</title>
-    <meta charset='UTF-8'/>
+    <meta charset="UTF-8"/>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name='author' content='AdmiJW'/>
@@ -12,27 +12,27 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
-    <!-- Particle JS -->
-    <script defer src='https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.2/particles.min.js'></script>
+    <!-- Particle JS (Pull request #286 version with FPS limiter, cloned)-->
+    <script src='https://cdn.jsdelivr.net/npm/tsparticles@1.26.3/dist/tsparticles.min.js'></script>
 
     <!-- Math JAX -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
     <!-- Math JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.3.2/math.js" async integrity="sha512-Imer9iTeuCPbyZUYNTKsBWsAk3m7n1vOgPsAmw4OlkGSS9qK3/WlJZg7wC/9kL7nUUOyb06AYS8DyYQV7ELEbg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.3.2/math.js" integrity="sha512-Imer9iTeuCPbyZUYNTKsBWsAk3m7n1vOgPsAmw4OlkGSS9qK3/WlJZg7wC/9kL7nUUOyb06AYS8DyYQV7ELEbg==" crossorigin="anonymous"></script>
 
     <!-- CSS -->
     <link rel='stylesheet' type='text/css' href='./style/style.css'/>
     <!-- JS -->
-    <script defer src='mathematics.js'></script>
-    <script defer src='script.js'></script>
+    <script src='./script/mathematics.js'></script>
+    <script defer src='./script/script.js'></script>
 
 </head>
 <body>
     <form class='container my-5' id='input--form'>
         <h1 class='display-4 text-center'>📊 Numerical Method Calculator</h1>
-        <p class='lead text-center'>Made to fit UTM Computational Mathematics</p>
+        <p class='lead text-center'>Made for UTM Computational Mathematics</p>
 
         <div class='divider'></div>
 
@@ -126,8 +126,6 @@
         <p class='text-sm text-light'>2021</p>
     </footer>
 
-    <div class='background'>
-        <canvas class="background__canvas"></canvas>
-    </div>
+    <div id="particlejs_bg"></div>
 </body>
 </html>

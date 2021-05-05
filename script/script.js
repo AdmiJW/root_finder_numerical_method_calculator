@@ -1,20 +1,15 @@
 //===============================
 // Particle js
 //===============================
-Particles.init({
-    selector: ".background__canvas",
-    maxParticles: 80,
-    connectParticles: true,
-    sizeVariations: 8,
-    color: '#ecf0f1',
-    responsive: [{
-        breakpoint: 768,
-        options: {
-            maxParticles: 30
-        }
-    }]
-});
 
+tsParticles
+  .loadJSON("particlejs_bg", "./script/particle_options.json")
+  .then(() => {
+    console.log("TsParticleJS loaded successfully");
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 //=================================
 //  Components
 //=================================
